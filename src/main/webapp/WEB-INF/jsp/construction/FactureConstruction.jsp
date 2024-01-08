@@ -62,7 +62,10 @@
                         </tr>
                         <tbody>
 
-                        <% for (HIstoriqueReparation historique: hIstoriqueReparations) { %>
+                        <% for (HIstoriqueReparation historique: hIstoriqueReparations) {
+                        if(historique.getCoutDepenses()>0){
+                        %>
+
                         <tr>
                             <td><%=historique.getEtatRoutes().getRoutes().getNonRoutes()%></td>
                             <td><%=historique.getEtatRoutes().getDebutEtatRoutes()%> - <%=historique.getEtatRoutes().getFinEtatRoutes()%> </td>
@@ -72,7 +75,7 @@
                             <td><%=historique.getCoutDepenses()%></td>
                             <td><%=historique.getResteBudget()%></td>
 
-                                <% } %>
+                                <% }} %>
                         </tbody>
 
                     </table>
@@ -81,13 +84,14 @@
             </div>
 
 
+            <% if (construction.getEtat()==0){ %>
+
             <div>
-                <a href="/validerConstruction/<%=construction.getId()%>" class="btn btn-primary me-2"
-                <% if (construction.getEtat()==0){ %>
-                    "disabled"
-                <%}%>
+                <a href="http://localhost:8080/validerConstruction/<%=construction.getId()%>" class="btn btn-primary me-2"
                 >Valider la construction</a>
             </div>
+            <%}%>
+
 
 
         </div>

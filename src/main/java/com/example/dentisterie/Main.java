@@ -14,27 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDateTime;
 import java.util.*;
 
-// open cv libraries
-//import org.opencv.core.Core;
-//import org.opencv.core.Mat;
-//import org.opencv.core.MatOfKeyPoint;
-//import org.opencv.core.Scalar;
-//import org.opencv.core.Size;
-//import org.opencv.core.MatOfDMatch;
-//import org.opencv.core.MatOfPoint;
-//import org.opencv.core.Point;
-//import org.opencv.core.Rect;
-//import org.opencv.core.CvType;
-//import org.opencv.core.MatOfRect;
-//import org.opencv.core.MatOfByte;
-//import org.opencv.core.MatOfFloat;
-//import org.opencv.core.MatOfInt;
-//import org.opencv.core.CvType;
-//import org.opencv.imgcodecs.Imgcodecs;
-//import org.opencv.imgproc.Imgproc;
-//import org.opencv.features2d.Features2d;
-//import org.opencv.core.DMatch;
-//
 @Configuration
 public class Main {
 
@@ -53,11 +32,7 @@ public class Main {
                                         ConstructionRepository constructionRepository){
         return args -> {
 
-//            List<Etat> etatList= new ArrayList<>();
-//            etatList.add(new Etat(1,"en bonne santé"));
-//            etatList.add(new Etat(2,"manque une dent"));
-//            etatList.add(new Etat(3,"besoin de soins"));
-//            etatRepository.saveAll(etatList);
+
             List<Patient> listePatient=new ArrayList<>();
             listePatient.add(new Patient(1,"fehiarisoa"));
             listePatient.add(new Patient(2,"prisca"));
@@ -293,80 +268,6 @@ public class Main {
             System.out.println("lui \n"+ consultation);
 
             List<EtatDent> etatDentList= etatDentRepository.findAll();
-//            System.out.println("avant");
-//            etatDentList.forEach(System.out::println);
-//            System.out.println("apres");
-//            Collections.sort(etatDentList, Comparator.comparing(
-//                    etatDent -> etatDent.getDents().getTypeDent().getId()).reversed());
-
-//            etatDentList.forEach(System.out::println);
-            // Load the image from file
-//            Mat originalImage = Imgcodecs.imread("/Users/priscafehiarisoadama/Downloads/dent-manquante.jpg");
-//
-//            // Convert the image to grayscale
-//            Mat grayImage = new Mat();
-//            Imgproc.cvtColor(originalImage, grayImage, Imgproc.COLOR_BGR2GRAY);
-//
-//            // Apply Canny edge detection
-//            Mat edges = new Mat();
-//            Imgproc.Canny(grayImage, edges, 50, 150); // Adjust the threshold values as needed
-//
-//            // Detect lines using HoughLines
-//            Mat lines = new Mat();
-//            Imgproc.HoughLines(edges, lines, 1, Math.PI / 180, 100); // Adjust the threshold value as needed
-//
-//            // Draw the detected lines on the original image
-//            for (int x = 0; x < lines.cols(); x++) {
-//                double[] vec = lines.get(0, x);
-//                double rho = vec[0], theta = vec[1];
-//                double a = Math.cos(theta), b = Math.sin(theta);
-//                double x0 = a * rho, y0 = b * rho;
-//                double scale = originalImage.cols() + originalImage.rows();
-//
-//                Point pt1 = new Point(Math.round(x0 + scale * (-b)), Math.round(y0 + scale * (a)));
-//                Point pt2 = new Point(Math.round(x0 - scale * (-b)), Math.round(y0 - scale * (a)));
-//
-//                Imgproc.line(originalImage, pt1, pt2, new Scalar(0, 0, 255), 2);
-//            }
-//
-//            // Save or display the result as needed
-//            Imgcodecs.imwrite("/Users/priscafehiarisoadama/IdeaProjects/dentisterie/src/main/result/result.jpg", originalImage);
-//            System.out.println("huhu");
-//            List<EtatDent> etatDentList1=etatDentRepository.getPriorite(
-//                    "ASC",
-//                    1);
-//            if(etatDentList1.size()>0) {
-//                Consultation consultation1 = etatDentList1.get(0).getConsultation();
-//
-//                coutRepository.getCoutByDents(listeDents.get(0)).forEach(System.out::println);
-////            System.out.println("\n \n");
-////            System.out.println(   etatDentRepository.findById(24).get() );
-////            System.out.println("\n lol \n");
-////            System.out.println(Cout.getcoutApproprie(coutRepository.getCoutByDents(listeDents.get(7)),etatDentRepository.findById(7).get()));
-//                HistoriqueIntervention historiqueIntervention = etatDentRepository.findById(7).get().calculPrixTraitementEtCreationHistorique(coutRepository, 20000);
-////            System.out.println("interv \n"+historiqueIntervention);
-//
-//                System.out.println("all");
-//                double budget = consultation.getBudget();
-//                List<HistoriqueIntervention> historiqueInterventions = new EtatDent().getListOfIntervention(coutRepository, etatDentRepository, etatDentList1.get(0).getConsultation(), budget);
-//                historiqueInterventions.forEach(System.out::println);
-//            }
-
-//            ================================================================================
-
-//            Routes routes=new Routes("RN1",0,300);
-//            EtatRoutes etatRoutes= new EtatRoutes(routes,2,10,5, LocalDateTime.now());
-//            EtatRoutes etatRoutes2= new EtatRoutes(routes,9,299,5, LocalDateTime.now());
-//            EtatRoutes etatRoutes3= new EtatRoutes(routes,199,200,5, LocalDateTime.now());
-//            Distance distance= new Distance(etatRoutes);
-//            Distance distance2= new Distance(etatRoutes2);
-////            System.out.println(distance);
-//            List<EtatRoutes> distances=new ArrayList<>();
-//            distances.add(etatRoutes);
-//            distances.add(etatRoutes2);
-//            distances.add(etatRoutes3);
-//            Construction construction=new Construction(LocalDateTime.now(),20000,routes,1);
-//            EtatRoutes.priorisation(construction,etatRoutesRepository).forEach(System.out::println);
                 List<Routes> routesList=new ArrayList<>();
                 routesList.add(new Routes(1,"RN1",0,200));
                 routesList.add(new Routes(2,"RN2",0,200));

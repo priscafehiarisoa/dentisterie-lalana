@@ -138,4 +138,85 @@ public class ConsultationController {
         }
         return etatDentList1;
     }
+
+    @GetMapping("/alea")
+    public String alea(Model model){
+        model.addAttribute("patient",patientRepository.findAll());
+        return "consultation/alea1";
+    }
+
+    @PostMapping("formAlea")
+    public Object formAlea(Model model,
+                           @RequestParam("patient") Integer idPatient,
+                           @RequestParam("priorite") Integer priorite,
+                           @RequestParam("budget") double budget,
+                           @RequestParam("dent") String dent ,
+                           @RequestParam("etat") String etat
+                           ){
+        Optional<Patient> patientOptional= patientRepository.findById(idPatient);
+        if(patientOptional.isPresent()) {
+            Consultation consultation = new Consultation(patientOptional.get());
+            consultation.setBudget(budget);
+            consultation.setPriorite(priorite);
+
+            consultationRepository.save(consultation);
+            //enlever le d
+            dent = dent.replace("d", "");
+            dent = dent.replace("D", "");
+            dent = dent.replace(" ", "");
+
+            etat= etat.replace(" ","");
+
+            List<Dents> listIdDents = new ArrayList<>();
+            List<EtatDent> etatDentList=new ArrayList<>();
+   // cas où d1-d3
+            if (dent.contains("-") && !dent.contains(",")) {
+                String[] iddents = dent.split("-");
+                if (iddents.length > 0) {
+                    for (int i = Integer.parseInt(iddents[0]); i < Integer.parseInt(iddents[1]) - Integer.parseInt(iddents[0]) + 1; i++) {
+                        if(i>16 && i<21){
+                            continue;
+                        }
+                        else{
+                            Optional<Dents> dentsOptional= dentsRepository.findById(i);
+                            if(dentsOptional.isPresent()){
+                                listIdDents.add(dentsOptional.get());
+                            }
+                        }
+
+                    }
+                }
+                int niveau = Integer.parseInt(etat);
+                for (int i = 0; i < listIdDents.size(); i++) {
+                    EtatDent etatDent= new EtatDent(listIdDents.get(i),niveau);
+                    etatDent.setConsultation(consultation);
+                    etatDentList.add(etatDent);
+                }
+
+            }
+//        cas où d1,d2,d3
+            else if (dent.contains(",") && !dent.contains("-") && etat.contains(",")) {
+                String[] iddents = dent.split(",");
+                String[] valeur= etat.split(",");
+                if(iddents.length>0 && valeur.length>0 && iddents.length==valeur.length){
+                    for (int i = 0; i < iddents.length; i++) {
+                        // create dents
+                        Optional<Dents> dentsOptional= dentsRepository.findById(i);
+                        if(dentsOptional.isPresent()){
+                            EtatDent etatDent= new EtatDent(dentsOptional.get(),Integer.parseInt(valeur[i]));
+                            etatDent.setConsultation(consultation);
+                            etatDentList.add(etatDent);
+                        }
+                    }
+                }
+
+            }
+            // save etat dent
+            etatDentRepository.saveAll(etatDentList);
+        }
+        final RedirectView redirectView = new RedirectView("/listConsultation", true);
+
+        return redirectView;
+
+    }
 }

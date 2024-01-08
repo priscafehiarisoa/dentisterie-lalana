@@ -153,7 +153,9 @@ public class ConstructionController {
     }
 
     @GetMapping("/validerConstruction/{id}")
-    public void validerConstruction(@PathVariable("id") Integer idConstruction){
+    public Object validerConstruction(@PathVariable("id") Integer idConstruction){
         new EtatRoutes().validerConstruction(idConstruction,etatRoutesRepository,coutReparationRepository,historiqueReparationRepository,constructionRepository);
+        final RedirectView redirectView = new RedirectView("/listConstruction", true);
+        return redirectView;
     }
 }

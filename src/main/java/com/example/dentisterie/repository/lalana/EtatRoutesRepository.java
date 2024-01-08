@@ -13,7 +13,9 @@ import java.util.List;
 
 public interface EtatRoutesRepository extends JpaRepository<EtatRoutes, Integer> {
 
-    @Query("select s from EtatRoutes s where s.etatNiveau<10 and s.dateDeclarationEtat >=:dateConstruction and s.routes=:routes")
+    @Query("select s from EtatRoutes s where s.etatNiveau<10 " +
+            "and s.dateDeclarationEtat >=:dateConstruction or s.dateDeclarationEtat <:dateConstruction " +
+            "and s.routes=:routes")
     List<EtatRoutes> getEtatRoutesAReparer(@Param("dateConstruction")LocalDateTime dateConstruction, @Param("routes")Routes routes);
 
     @Modifying

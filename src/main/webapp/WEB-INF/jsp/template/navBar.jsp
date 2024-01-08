@@ -23,6 +23,7 @@
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"><a class="nav-link" href="/consultation">ajouter</a></li>
             <li class="nav-item"><a class="nav-link" href="/listConsultation">liste</a></li>
+            <li class="nav-item"><a class="nav-link" href="/alea">alea</a></li>
           </ul>
         </div>
       </li>
